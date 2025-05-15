@@ -107,8 +107,7 @@ const projects = [
     id: "e-commerce-app",
     title: "تطبيق متجر إلكتروني",
     description: "تطبيق جوال لمتجر إلكتروني مع نظام دفع متكامل",
-    fullDescription:
-      "تطبيق جوال لمتجر إلكتروني يتيح للمستخدمين تصفح المنتجات وشرائها عبر الإنترنت. يتضمن التطبيق نظام دفع متكامل، وسلة تسوق، وإدارة للطلبات، وتتبع للشحن، وتقييمات للمنتجات.",
+    fullDescription: "تطبيق جوال لمتجر إلكتروني يتيح للمستخدمين تصفح المنتجات وشرائها عبر الإنترنت. يتضمن التطبيق نظام دفع متكامل، وسلة تسوق، وإدارة للطلبات، وتتبع للشحن، وتقييمات للمنتجات.",
     features: [
       "واجهة مستخدم سهلة الاستخدام",
       "نظام دفع متكامل",
@@ -131,12 +130,66 @@ const projects = [
     client: "متجر الأناقة",
     completionDate: "2023-07-20",
     relatedProjects: ["food-delivery-app", "task-management-app"],
+    challenges: [
+      "تطوير تطبيق سهل الاستخدام مع واجهة مستخدم جذابة",
+      "ضمان أمان عمليات الدفع",
+      "تحسين أداء التطبيق مع كميات كبيرة من المنتجات",
+      "توفير تجربة مستخدم سلسة",
+    ],
+    solutions: [
+      "استخدام React Native لتطوير تطبيق متوافق مع iOS و Android",
+      "تكامل مع Stripe للدفع الآمن",
+      "تحسين أداء قاعدة البيانات وتخزين مؤقت للمنتجات",
+      "تصميم واجهة مستخدم بسيطة وسهلة الاستخدام",
+    ],
+    results: [
+      "زيادة مبيعات المتجر بنسبة 200% خلال 3 أشهر",
+      "تحسين تجربة المستخدم وزيادة معدل تحويل الزوار إلى مشترين",
+      "تقليل وقت تحميل التطبيق بنسبة 40%",
+      "زيادة رضا العملاء وتقييمات التطبيق",
+    ],
   },
   {
     id: "cms-system",
     title: "نظام إدارة المحتوى",
     description: "نظام إدارة محتوى مخصص لشركة إعلامية",
+    fullDescription: "نظام إدارة محتوى مخصص لشركة إعلامية يتيح إدارة المحتوى الإخباري والمقالات والوسائط المتعددة. يوفر النظام واجهة سهلة الاستخدام للمحررين والكتاب مع إمكانية التحكم في الصلاحيات وإدارة الإصدارات.",
+    features: [
+      "إدارة المحتوى الإخباري والمقالات",
+      "نظام إدارة الوسائط المتعددة",
+      "إدارة المستخدمين والصلاحيات",
+      "نظام التعليقات والتفاعل",
+      "دعم SEO",
+      "نظام الإصدارات والمسودات",
+      "واجهة مستخدم سهلة الاستخدام",
+      "تصدير المحتوى بتنسيقات مختلفة",
+      "تكامل مع وسائل التواصل الاجتماعي",
+      "إحصائيات وتقارير",
+    ],
+    technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS", "AWS S3"],
+    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
     category: "web",
+    client: "مجموعة الإعلام العربي",
+    completionDate: "2023-09-15",
+    relatedProjects: ["e-learning-platform", "real-estate-platform"],
+    challenges: [
+      "تطوير نظام مرن يلبي احتياجات المحررين والكتاب",
+      "ضمان أداء عالي مع كميات كبيرة من المحتوى",
+      "توفير واجهة مستخدم سهلة الاستخدام",
+      "دعم مختلف أنواع المحتوى والوسائط",
+    ],
+    solutions: [
+      "استخدام Next.js لتطوير نظام سريع وفعال",
+      "تصميم قاعدة بيانات مُحسنة للتعامل مع المحتوى",
+      "تطوير واجهة مستخدم بسيطة وسهلة الاستخدام",
+      "إنشاء نظام إدارة وسائط متعدد متكامل",
+    ],
+    results: [
+      "تحسين كفاءة فريق المحررين بنسبة 60%",
+      "تقليل وقت نشر المحتوى بنسبة 40%",
+      "زيادة تفاعل القراء مع المحتوى",
+      "تحسين ترتيب الموقع في محركات البحث",
+    ],
   },
   {
     id: "food-delivery-app",
@@ -217,7 +270,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
             <div className="grid gap-12 md:grid-cols-2 items-center">
               <div className="relative aspect-video overflow-hidden rounded-xl shadow-lg">
                 <Image
-                  src={project.images[0] || "/placeholder.svg"}
+                  src={project.images?.[0] || "/placeholder.svg"}
                   alt={project.title}
                   className="object-cover"
                   fill
@@ -233,7 +286,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                         ? "تطبيقات الويب"
                         : "تطبيقات الجوال"}
                   </Badge>
-                  {project.technologies.slice(0, 3).map((tech, index) => (
+                  {project.technologies?.slice(0, 3).map((tech, index) => (
                     <Badge key={`hero-tech-${index}`} variant="outline">
                       {tech}
                     </Badge>
@@ -242,16 +295,20 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                 <h1 className="text-3xl md:text-4xl font-bold mb-4">{project.title}</h1>
                 <p className="text-lg text-slate-700 dark:text-slate-300 mb-6">{project.fullDescription}</p>
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="flex items-center gap-2">
-                    <User className="h-5 w-5 text-blue-600" />
-                    <span className="text-slate-700 dark:text-slate-300">العميل: {project.client}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-blue-600" />
-                    <span className="text-slate-700 dark:text-slate-300">
-                      تاريخ الإنجاز: {new Date(project.completionDate).toLocaleDateString("ar-EG")}
-                    </span>
-                  </div>
+                  {project.client && (
+                    <div className="flex items-center gap-2">
+                      <User className="h-5 w-5 text-blue-600" />
+                      <span className="text-slate-700 dark:text-slate-300">العميل: {project.client}</span>
+                    </div>
+                  )}
+                  {project.completionDate && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-5 w-5 text-blue-600" />
+                      <span className="text-slate-700 dark:text-slate-300">
+                        تاريخ الإنجاز: {new Date(project.completionDate).toLocaleDateString("ar-SA")}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-wrap gap-4">
                   <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600" asChild>
@@ -368,7 +425,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           <div className="container">
             <h2 className="text-2xl font-bold mb-8 text-center">التقنيات المستخدمة</h2>
             <div className="flex flex-wrap justify-center gap-4">
-              {project.technologies.map((tech, index) => (
+              {project.technologies?.map((tech, index) => (
                 <div
                   key={`tech-${index}`}
                   className="px-6 py-3 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex items-center gap-2"
