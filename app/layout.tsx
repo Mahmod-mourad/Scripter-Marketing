@@ -3,13 +3,15 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Providers } from "@/app/providers"
 import { ResponsiveFixes } from "@/components/responsive-fixes"
+import { viewport } from "./viewport"
 
 export const metadata: Metadata = {
   title: "Scripter Marketing - شركة برمجة وتسويق رقمي",
   description: "شركة Scripter Marketing لتطوير البرمجيات والتسويق الرقمي وتقديم الحلول التقنية المتكاملة",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
+
+export { viewport }
 
 export default function RootLayout({
   children,

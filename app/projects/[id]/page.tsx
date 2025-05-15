@@ -195,7 +195,47 @@ const projects = [
     id: "food-delivery-app",
     title: "تطبيق توصيل طعام",
     description: "تطبيق لطلب وتوصيل الطعام مع نظام تتبع مباشر",
+    fullDescription: "تطبيق متكامل لطلب وتوصيل الطعام يتيح للمستخدمين تصفح المطاعم وطلب الطعام وتتبع الطلب مباشرة. يتضمن التطبيق نظام دفع إلكتروني، وتقييمات للمطاعم، وتتبع مباشر للطلبات، وإدارة للعناوين المفضلة.",
+    features: [
+      "واجهة مستخدم سهلة الاستخدام",
+      "نظام دفع إلكتروني",
+      "تتبع مباشر للطلبات",
+      "تقييمات للمطاعم والمنتجات",
+      "إدارة العناوين المفضلة",
+      "عروض وخصومات",
+      "إشعارات فورية",
+      "بحث متقدم وتصفية للمطاعم",
+      "دعم اللغة العربية والإنجليزية",
+      "تكامل مع وسائل التواصل الاجتماعي",
+    ],
+    technologies: ["React Native", "Firebase", "Google Maps API", "Stripe", "Redux", "Node.js"],
+    images: [
+      "/placeholder.svg?height=600&width=800",
+      "/placeholder.svg?height=600&width=800",
+      "/placeholder.svg?height=600&width=800",
+    ],
     category: "mobile",
+    client: "شركة التوصيل السريع",
+    completionDate: "2023-11-15",
+    relatedProjects: ["e-commerce-app", "task-management-app"],
+    challenges: [
+      "تطوير نظام تتبع مباشر دقيق",
+      "ضمان أمان عمليات الدفع",
+      "تحسين تجربة المستخدم",
+      "إدارة الطلبات المتزامنة",
+    ],
+    solutions: [
+      "تكامل مع Google Maps API للتتبع المباشر",
+      "استخدام Stripe للدفع الآمن",
+      "تصميم واجهة مستخدم بسيطة وسهلة الاستخدام",
+      "تطوير نظام إدارة طلبات متقدم",
+    ],
+    results: [
+      "زيادة عدد الطلبات بنسبة 180% خلال 4 أشهر",
+      "تحسين تجربة المستخدم وزيادة معدل إعادة الطلب",
+      "تقليل وقت التوصيل بنسبة 25%",
+      "زيادة رضا العملاء وتقييمات التطبيق",
+    ],
   },
   {
     id: "real-estate-platform",
@@ -244,8 +284,8 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   // إذا لم يتم العثور على المشروع، عرض صفحة 404
   if (!project) return notFound()
 
-  // Get related projects
-  const relatedProjects = project.relatedProjects
+  // Get related projects - تحديث طريقة عرض المشاريع ذات الصلة
+  const relatedProjects = project.relatedProjects && project.relatedProjects.length > 0
     ? projects.filter((p) => project.relatedProjects?.includes(p.id))
     : projects.filter((p) => p.category === project.category && p.id !== project.id).slice(0, 3)
 
