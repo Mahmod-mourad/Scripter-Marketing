@@ -6,9 +6,9 @@ import { AnimatePresence } from "framer-motion"
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
       <AnimatePresence mode="wait">
-        <div key="providers-wrapper">{children}</div>
+        <div key="providers-wrapper" dir="rtl">{children}</div>
       </AnimatePresence>
     </ThemeProvider>
   )

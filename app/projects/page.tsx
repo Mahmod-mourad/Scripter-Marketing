@@ -1,6 +1,5 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
-import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import { PageTransition } from "@/components/page-transition"
@@ -62,7 +61,7 @@ export default function ProjectsPage() {
   ]
 
   return (
-    <div className="flex min-h-screen flex-col bg-white text-slate-900">
+    <div className="flex min-h-screen flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 theme-transition">
       <MainNav />
 
       <PageHeader
@@ -96,9 +95,9 @@ export default function ProjectsPage() {
           </section>
 
           {/* Call to Action */}
-          <section className="bg-slate-100 py-16">
+          <section className="bg-slate-100 dark:bg-slate-900 py-16 theme-transition">
             <div className="container">
-              <div className="rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 p-8 md:p-12">
+              <div className="rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-700 dark:to-blue-900 p-8 md:p-12 theme-transition">
                 <div className="mx-auto max-w-3xl text-center">
                   <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                     هل لديك مشروع تريد تنفيذه؟
@@ -108,13 +107,13 @@ export default function ProjectsPage() {
                     أهدافك.
                   </p>
                   <div className="mt-8 flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-white text-blue-900 hover:bg-blue-50" asChild>
+                    <Button size="lg" className="bg-white text-blue-900 hover:bg-blue-50 dark:bg-white dark:text-blue-900 dark:hover:bg-blue-50 theme-transition" asChild>
                       <Link href="/contact">تواصل معنا</Link>
                     </Button>
                     <Button
                       size="lg"
                       variant="secondary"
-                      className="bg-blue-200 text-blue-900 border-blue-300 hover:bg-blue-300"
+                      className="bg-blue-200 text-blue-900 border-blue-300 hover:bg-blue-300 dark:bg-blue-900/30 dark:text-blue-100 dark:border-blue-800 dark:hover:bg-blue-900/50 theme-transition"
                       asChild
                     >
                       <Link href="/services">استكشف خدماتنا</Link>
@@ -128,7 +127,7 @@ export default function ProjectsPage() {
       </PageTransition>
 
       <Footer />
-      <WhatsAppButton />
+      {/* تم حذف WhatsAppButton */}
     </div>
   )
 }

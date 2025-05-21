@@ -1,6 +1,5 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
-import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import { Badge } from "@/components/ui/badge"
@@ -65,7 +64,7 @@ const projects = [
     title: "منصة تعليمية",
     description: "منصة تعليمية متكاملة لتقديم الدورات عبر الإنترنت",
     fullDescription:
-      "منصة تعليمية متكاملة تتيح للمدربين تقديم دوراتهم عبر الإنترنت وللطلاب الاشتراك في هذه الدورات ومتابعتها. تتضمن المنصة نظام إدارة محتوى تعليمي، ونظام دفع إلكتروني، ومنتدى للنقاش، واختبارات وشهادات.",
+      "منصة تعليمية متكاملة تتيح للمدربين تقديم دوراتهم عبر الإنترنت وللطلاب الاشتراق في هذه الدورات ومتابعتها. تتضمن المنصة نظام إدارة محتوى تعليمي، ونظام دفع إلكتروني، ومنتدى للنقاش، واختبارات وشهادات.",
     features: [
       "نظام إدارة محتوى تعليمي متكامل",
       "بث مباشر للمحاضرات",
@@ -702,7 +701,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       </main>
 
       <Footer />
-      <WhatsAppButton />
+      {/* تم حذف WhatsAppButton */}
     </div>
   )
 }

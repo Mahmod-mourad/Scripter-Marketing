@@ -1,7 +1,7 @@
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
-import { Briefcase, Users, Award, Clock, Globe, CheckCircle } from "lucide-react"
+import { Briefcase, Users, Award, Clock, Globe, CheckCircle, Target, Heart, Zap, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { PageHeader } from "@/components/page-header"
@@ -19,22 +19,22 @@ export default function AboutPage() {
   // Define company values to avoid duplication
   const companyValues = [
     {
-      icon: <CheckCircle className="h-6 w-6" />,
-      title: "الجودة",
+      icon: <Target className="h-6 w-6" />,
+      title: "الرؤية",
       description:
-        "نلتزم بتقديم منتجات وخدمات عالية الجودة تتجاوز توقعات عملائنا. نحن نؤمن بأن الجودة ليست خيارًا، بل هي ضرورة.",
+        "نسعى لأن نكون الشريك الموثوق به في مجال التطوير البرمجي والتسويق الرقمي في المنطقة العربية، من خلال تقديم حلول مبتكرة ومستدامة.",
     },
     {
-      icon: <Users className="h-6 w-6" />,
-      title: "العمل الجماعي",
+      icon: <Heart className="h-6 w-6" />,
+      title: "الرسالة",
       description:
-        "نؤمن بقوة العمل الجماعي والتعاون. نحن نعمل معًا كفريق واحد لتحقيق أهدافنا المشتركة وتقديم أفضل النتائج لعملائنا.",
+        "نلتزم بتقديم خدمات متميزة تساعد عملائنا على النمو والتميز في السوق الرقمي، مع التركيز على الجودة والابتكار والموثوقية.",
     },
     {
-      icon: <Globe className="h-6 w-6" />,
-      title: "الابتكار",
+      icon: <Zap className="h-6 w-6" />,
+      title: "الأهداف",
       description:
-        "نسعى دائمًا للابتكار وتطوير حلول جديدة ومبتكرة. نحن نشجع الإبداع والتفكير خارج الصندوق في كل ما نقوم به.",
+        "نسعى لبناء شراكات طويلة الأمد مع عملائنا، وتطوير حلول مبتكرة، وتقديم خدمات عالية الجودة، وتحقيق النمو المستدام.",
     },
   ]
 
@@ -72,7 +72,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="flex min-h-screen flex-col bg-white text-slate-900">
+    <div className="flex min-h-screen flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 theme-transition">
       <MainNav />
 
       <PageHeader
@@ -86,14 +86,17 @@ export default function AboutPage() {
 
       <PageTransition>
         <main className="flex-1">
-          {/* Company Overview */}
-          <section className="py-16">
-            <div className="container">
-              <div className="grid gap-12 md:grid-cols-2 md:items-center">
+          {/* Hero Section */}
+          <section className="relative py-12 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white dark:from-blue-950/20 dark:to-slate-950/50"></div>
+            <div className="container relative">
+              <div className="grid gap-8 md:grid-cols-2 md:items-center">
                 <div>
-                  <h2 className="text-3xl font-bold tracking-tight text-slate-900">نبذة عن الشركة</h2>
-                  <div className="mt-6 space-y-4 text-slate-700">
-                    <p>
+                  <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition mb-4">
+                    نحن نبتكر <span className="text-blue-600 dark:text-blue-400">حلولاً رقمية</span> تدفع عملك للأمام
+                  </h2>
+                  <div className="mt-4 space-y-3 text-slate-700 dark:text-slate-300 theme-transition">
+                    <p className="text-lg">
                       تأسست شركة Scripter Marketing في عام 2022 في مدينة 6 أكتوبر على يد مجموعة من المهندسين المحترفين
                       بهدف تقديم حلول برمجية وتسويقية متكاملة للشركات والمؤسسات في المنطقة العربية.
                     </p>
@@ -106,20 +109,20 @@ export default function AboutPage() {
                       والتوسع في السوق الرقمي بأحدث التقنيات والاستراتيجيات.
                     </p>
                   </div>
-                  <div className="mt-8 flex flex-wrap gap-4">
-                    <Button className="bg-blue-600 hover:bg-blue-700" asChild>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 theme-transition" asChild>
                       <Link href="/contact">تواصل معنا</Link>
                     </Button>
                     <Button
                       variant="secondary"
-                      className="bg-blue-200 text-blue-900 border-blue-300 hover:bg-blue-300"
+                      className="bg-blue-200 text-blue-900 border-blue-300 hover:bg-blue-300 dark:bg-blue-900/30 dark:text-blue-100 dark:border-blue-800 dark:hover:bg-blue-900/50 theme-transition"
                       asChild
                     >
                       <Link href="/services">استكشف خدماتنا</Link>
                     </Button>
                   </div>
                 </div>
-                <div className="relative aspect-video overflow-hidden rounded-xl">
+                <div className="relative aspect-video overflow-hidden rounded-xl shadow-2xl">
                   <Image
                     src="/assets/images/about/team.jpg"
                     alt="فريق Scripter Marketing"
@@ -132,20 +135,32 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Our Values */}
-          <section className="bg-slate-100 py-16">
+          {/* My Experience & Touch */}
+          <section className="py-8 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
             <div className="container">
-              <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900">قيمنا</h2>
-                <p className="mt-4 text-slate-700">المبادئ التي توجه عملنا وتحدد هويتنا كشركة</p>
+              <div className="mx-auto max-w-3xl text-center">
+                <h2 className="text-2xl font-bold tracking-tight text-blue-700 dark:text-blue-400 mb-3">لمسة المطور وخبرته</h2>
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                  بخبرة تتجاوز <span className="font-bold text-blue-600 dark:text-blue-300">7 سنوات</span> في تطوير البرمجيات وتصميم واجهات المستخدم وتجربة المستخدم، أحرص دائماً على المزج بين الإبداع والعملية في كل مشروع أعمل عليه. أستخدم أحدث التقنيات وأفضل الممارسات العالمية في تطوير المواقع والتطبيقات، مع التركيز على التفاصيل الصغيرة التي تصنع الفرق الكبير في تجربة العميل. شغفي هو بناء حلول رقمية متكاملة تساعد الشركات على النمو والتميز في السوق الرقمي.
+                </p>
               </div>
-              <div className="mt-16 grid gap-8 md:grid-cols-3">
+            </div>
+          </section>
+
+          {/* Vision, Mission & Goals */}
+          <section className="py-10 bg-slate-50 dark:bg-slate-900/50 theme-transition border-b border-slate-200 dark:border-slate-800">
+            <div className="container">
+              <div className="mx-auto max-w-2xl text-center mb-10">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition">رؤيتنا ورسالتنا وأهدافنا</h2>
+                <p className="mt-2 text-slate-700 dark:text-slate-300 theme-transition">نحن نسعى دائماً للتميز والابتكار في كل ما نقوم به</p>
+              </div>
+              <div className="grid gap-6 md:grid-cols-3">
                 {companyValues.map((value, index) => (
-                  <Card key={`company-value-${index}`} className="bg-white">
+                  <Card key={`company-value-${index}`} className="bg-white dark:bg-slate-800 dark:border-slate-700 theme-transition hover:shadow-lg transition-all duration-300">
                     <CardContent className="p-6">
-                      <div className="mb-4 h-12 w-12 rounded-lg bg-blue-100 p-3 text-blue-600">{value.icon}</div>
-                      <h3 className="mb-2 text-xl font-bold text-slate-900">{value.title}</h3>
-                      <p className="text-slate-700">{value.description}</p>
+                      <div className="mb-4 h-14 w-14 rounded-lg bg-blue-100 p-3 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 theme-transition">{value.icon}</div>
+                      <h3 className="mb-2 text-xl font-bold text-slate-900 dark:text-white theme-transition">{value.title}</h3>
+                      <p className="text-slate-700 dark:text-slate-300 theme-transition leading-relaxed">{value.description}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -154,15 +169,15 @@ export default function AboutPage() {
           </section>
 
           {/* Our Team */}
-          <section className="py-16">
+          <section className="py-10">
             <div className="container">
-              <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900">فريقنا</h2>
-                <p className="mt-4 text-slate-700">
+              <div className="mx-auto max-w-2xl text-center mb-10">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition">فريقنا المتميز</h2>
+                <p className="mt-2 text-slate-700 dark:text-slate-300 theme-transition">
                   يتكون فريقنا من مجموعة من المهندسين المتخصصين ذوي الخبرة في مختلف مجالات البرمجة والتسويق الرقمي
                 </p>
               </div>
-              <div className="mt-16 grid gap-12 md:grid-cols-3">
+              <div className="grid gap-8 md:grid-cols-3">
                 {teamMembers.map((member, index) => (
                   <TeamMemberCard
                     key={`team-member-${index}`}
@@ -177,42 +192,84 @@ export default function AboutPage() {
           </section>
 
           {/* Company Stats */}
-          <section className="bg-slate-100 py-16">
+          <section className="py-10 bg-gradient-to-br from-blue-600 to-blue-800 text-white border-b border-blue-700/30">
             <div className="container">
-              <div className="grid gap-8 grid-cols-2 md:grid-cols-4">
+              <div className="grid gap-6 grid-cols-2 md:grid-cols-4">
                 {companyStats.map((stat, index) => (
                   <div key={`company-stat-${index}`} className="text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
                       {stat.icon}
                     </div>
-                    <div className="text-3xl font-bold text-slate-900">{stat.value}</div>
-                    <div className="mt-2 text-slate-700">{stat.label}</div>
+                    <div className="text-3xl font-bold mb-1">{stat.value}</div>
+                    <div className="text-blue-100 text-sm">{stat.label}</div>
                   </div>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* Call to Action */}
-          <section className="py-16">
+          {/* Why Choose Us */}
+          <section className="py-10">
             <div className="container">
-              <div className="rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 p-8 md:p-12">
+              <div className="mx-auto max-w-2xl text-center mb-10">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition">لماذا تختارنا؟</h2>
+                <p className="mt-2 text-slate-700 dark:text-slate-300 theme-transition">نقدم خدمات متميزة تلبي احتياجات عملائنا بأعلى معايير الجودة</p>
+              </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card className="bg-white dark:bg-slate-800 dark:border-slate-700 theme-transition hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="h-12 w-12 rounded-lg bg-blue-100 p-3 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 theme-transition">
+                        <Shield className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white theme-transition mb-2">خبرة واسعة</h3>
+                        <p className="text-slate-700 dark:text-slate-300 theme-transition text-sm">
+                          فريقنا يمتلك خبرة واسعة في مختلف مجالات البرمجة والتسويق الرقمي، مما يمكننا من تقديم حلول متكاملة وفعالة.
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-white dark:bg-slate-800 dark:border-slate-700 theme-transition hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="h-12 w-12 rounded-lg bg-blue-100 p-3 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 theme-transition">
+                        <CheckCircle className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white theme-transition mb-2">جودة عالية</h3>
+                        <p className="text-slate-700 dark:text-slate-300 theme-transition text-sm">
+                          نلتزم بتقديم خدمات عالية الجودة تتجاوز توقعات عملائنا، مع التركيز على التفاصيل والكمال في كل ما نقوم به.
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </section>
+
+          {/* Call to Action */}
+          <section className="py-12">
+            <div className="container">
+              <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-800 p-8 md:p-12 shadow-xl">
                 <div className="mx-auto max-w-3xl text-center">
-                  <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                  <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl mb-4">
                     هل أنت جاهز لتطوير أعمالك؟
                   </h2>
-                  <p className="mt-4 text-lg text-blue-100">
+                  <p className="mt-2 text-base text-blue-100 mb-6">
                     تواصل معنا اليوم لمناقشة مشروعك واحتياجاتك البرمجية والتسويقية. فريقنا جاهز لمساعدتك في تحقيق
                     أهدافك.
                   </p>
-                  <div className="mt-8 flex flex-wrap justify-center gap-4">
-                    <Button size="lg" className="bg-white text-blue-900 hover:bg-blue-50" asChild>
+                  <div className="flex flex-wrap justify-center gap-3">
+                    <Button size="lg" className="bg-white text-blue-900 hover:bg-blue-50 dark:bg-white dark:text-blue-900 dark:hover:bg-blue-50 theme-transition" asChild>
                       <Link href="/contact">تواصل معنا</Link>
                     </Button>
                     <Button
                       size="lg"
                       variant="secondary"
-                      className="bg-blue-200 text-blue-900 border-blue-300 hover:bg-blue-300"
+                      className="bg-blue-200 text-blue-900 border-blue-300 hover:bg-blue-300 dark:bg-blue-900/30 dark:text-blue-100 dark:border-blue-800 dark:hover:bg-blue-900/50 theme-transition"
                       asChild
                     >
                       <Link href="/services">استكشف خدماتنا</Link>

@@ -1,14 +1,13 @@
 import type React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
-import { Providers } from "@/app/providers"
+import { Providers } from "./providers"
 import { ResponsiveFixes } from "@/components/responsive-fixes"
 import { viewport } from "./viewport"
 
 export const metadata: Metadata = {
-  title: "Scripter Marketing - شركة برمجة وتسويق رقمي",
-  description: "شركة Scripter Marketing لتطوير البرمجيات والتسويق الرقمي وتقديم الحلول التقنية المتكاملة",
-  generator: 'v0.dev'
+  title: "Scripter Marketing",
+  description: "شركة متخصصة في تطوير البرمجيات والتسويق الرقمي",
 }
 
 export { viewport }
@@ -19,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning>
-      <body>
+    <html suppressHydrationWarning>
+      <body suppressHydrationWarning={true}>
         <Providers>
           {children}
           <ResponsiveFixes />

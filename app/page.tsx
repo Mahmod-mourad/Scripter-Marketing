@@ -1,16 +1,15 @@
+"use client"
+
 import { ChevronRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { WhatsAppButton } from "@/components/whatsapp-button"
 import { ProjectCard } from "@/components/project-card"
 import { ServiceCard } from "@/components/service-card"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { PageTransition } from "@/components/page-transition"
-import { TestimonialSlider } from "@/components/testimonial-slider"
-import { BlogPreview } from "@/components/blog-preview"
 
 export default function Home() {
   // Define values for cards to avoid duplication
@@ -141,43 +140,51 @@ export default function Home() {
   ]
 
   return (
-    <div className="flex min-h-screen flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-white theme-transition">
+    <div className={`flex min-h-screen flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-white theme-transition`} dir="rtl">
       {/* Header */}
       <MainNav />
 
       <PageTransition>
         <main className="flex-1">
-          {/* Hero Section - أولاً */}
-          <section id="home" className="relative overflow-hidden py-20 md:py-32">
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 to-blue-950/95 dark:from-slate-950/95 dark:to-blue-950/95 theme-transition"></div>
-            <div className="absolute inset-0 z-0">
-              <Image src="/modern-tech-office.png" alt="Hero Background" fill className="object-cover opacity-40" priority />
-            </div>
-            <div className="container relative z-10 flex flex-col items-center text-center">
-              <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-                نبني برمجيات ذكية ونصنع العلامات التجارية
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg text-slate-200">
-                حلول برمجية وتسويقية مبتكرة تدفع نمو عملك وتساعدك على التميز في السوق الرقمي
-              </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
-                <Button
-                  size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 theme-transition"
-                  asChild
-                >
-                  <a href="#services">
-                    احجز استشارتك المجانية الآن
-                    <ChevronRight className="mr-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button
-                  size="lg"
-                  className="bg-white text-blue-900 hover:bg-blue-50 dark:bg-white dark:text-blue-900 dark:hover:bg-blue-50 theme-transition"
-                  asChild
-                >
-                  <Link href="/about">تعرف علينا</Link>
-                </Button>
+          {/* Hero Section */}
+          <section id="home" className="relative min-h-screen flex items-center pt-20 bg-blue-900">
+            <div className="absolute inset-0 bg-blue-900"></div>
+            {/* يمكن إضافة تأثيرات خلفية إضافية هنا إذا رغبت */}
+
+            <div className="container relative z-10 px-2 sm:px-4">
+              <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 items-center">
+                {/* Hero Content */}
+                <div className="text-center lg:text-right">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 break-words">
+                    نُمهد الطريق <span className="text-[#00e6d8]">لنجاح الشركات الناشئة</span>
+                  </h1>
+                  <p className="mt-4 max-w-xl mx-auto lg:mx-0 text-base sm:text-lg text-blue-100 mb-8 break-words">
+                    خدماتنا مصممة لمساعدتك على النمو والابتكار والتميز في السوق الرقمي.
+                  </p>
+                  <div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-end gap-4">
+                    <Button
+                      size="lg"
+                      className="bg-[#00e6d8] hover:bg-[#00bfae] text-blue-900 font-bold rounded-md px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-md transition-all w-full sm:w-auto"
+                      asChild
+                    >
+                      <Link href="/contact">احجز استشارة مجانية</Link>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Hero Image */}
+                <div className="relative flex justify-center lg:justify-end mt-8 lg:mt-0">
+                  <div className="relative w-60 h-60 sm:w-80 sm:h-80 max-w-full">
+                    <Image
+                      src="/rocket-hero.svg"
+                      alt="Rocket Launch Illustration"
+                      width={320}
+                      height={320}
+                      className="object-contain drop-shadow-2xl w-full h-full"
+                      priority
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -248,23 +255,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Testimonials Section */}
-          <section className="bg-slate-100 py-20 dark:bg-slate-900 theme-transition">
-            <div className="container">
-              <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition sm:text-4xl">
-                  ماذا يقول عملاؤنا
-                </h2>
-                <p className="mt-4 text-slate-700 dark:text-slate-300 theme-transition">
-                  آراء بعض عملائنا الذين تعاملوا معنا وتحدثوا عن تجربتهم
-                </p>
-              </div>
-              <div className="mt-16">
-                <TestimonialSlider />
-              </div>
-            </div>
-          </section>
-
           {/* About Section - رابعاً */}
           <section className="py-20">
             <div className="container">
@@ -307,33 +297,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Blog Preview Section */}
-          <section className="bg-slate-100 py-20 dark:bg-slate-900 theme-transition">
-            <div className="container">
-              <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition sm:text-4xl">
-                  آخر المقالات
-                </h2>
-                <p className="mt-4 text-slate-700 dark:text-slate-300 theme-transition">
-                  أحدث المقالات والمدونات في مجال البرمجة والتسويق الرقمي
-                </p>
-              </div>
-              <div className="mt-16">
-                <BlogPreview />
-              </div>
-              <div className="mt-10 text-center">
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="bg-blue-200 text-blue-900 border-blue-300 hover:bg-blue-300"
-                  asChild
-                >
-                  <Link href="/blog">عرض كل المقالات</Link>
-                </Button>
-              </div>
-            </div>
-          </section>
-
           {/* Call to Action */}
           <section className="py-20">
             <div className="container">
@@ -364,8 +327,7 @@ export default function Home() {
       {/* Footer - خامساً */}
       <Footer />
 
-      {/* WhatsApp Button - ظاهر دائماً */}
-      <WhatsAppButton />
+      {/* تم حذف WhatsAppButton */}
     </div>
   )
 }

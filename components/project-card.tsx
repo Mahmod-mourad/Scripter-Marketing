@@ -24,7 +24,9 @@ export function ProjectCard({
 }: ProjectCardProps) {
   return (
     <div
-      className={`group overflow-hidden rounded-lg border dark:border-slate-700 border-slate-200 bg-white dark:bg-slate-800 theme-transition hover:shadow-lg transition-all duration-300 ${featured ? "ring-2 ring-blue-500" : ""}`}
+      className={`group overflow-hidden rounded-lg border dark:border-slate-700 border-slate-200 bg-white dark:bg-slate-800 theme-transition hover:shadow-lg transition-all duration-300 ${
+        featured ? "ring-2 ring-blue-500 dark:ring-blue-400" : ""
+      }`}
     >
       <div className="relative aspect-video overflow-hidden">
         <Image
@@ -35,7 +37,7 @@ export function ProjectCard({
         />
         {featured && (
           <div className="absolute top-2 right-2">
-            <Badge className="bg-blue-600 dark:bg-blue-500 theme-transition">مميز</Badge>
+            <Badge className="bg-blue-600 dark:bg-blue-500 text-white theme-transition">مميز</Badge>
           </div>
         )}
       </div>
@@ -43,7 +45,7 @@ export function ProjectCard({
         <h3 className="mb-2 text-xl font-bold text-slate-900 dark:text-white theme-transition">{title}</h3>
         <p className="mb-4 text-sm text-slate-600 dark:text-slate-300 theme-transition">{description}</p>
         <div className="mb-4">
-          <Badge variant="secondary" className="bg-slate-100 dark:bg-slate-700 theme-transition">
+          <Badge variant="secondary" className="bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-slate-100 theme-transition">
             {category === "desktop"
               ? "برامج سطح المكتب"
               : category === "web"
@@ -59,14 +61,18 @@ export function ProjectCard({
               <Badge
                 key={`tech-${id}-${index}`}
                 variant="outline"
-                className="text-xs border-slate-300 dark:border-slate-600"
+                className="text-xs border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 theme-transition"
               >
                 {tech}
               </Badge>
             ))}
           </div>
         )}
-        <Button variant="outline" className="w-full border-slate-200 dark:border-slate-700 theme-transition" asChild>
+        <Button 
+          variant="outline" 
+          className="w-full border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-700 theme-transition" 
+          asChild
+        >
           <Link href={`/projects/${id}`}>عرض التفاصيل</Link>
         </Button>
       </div>
