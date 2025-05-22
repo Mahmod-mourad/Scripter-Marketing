@@ -152,7 +152,7 @@ export default function BookConsultationPage() {
       </PageTransition>
 
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton phoneNumber="01020384694" />
     </div>
   )
 }

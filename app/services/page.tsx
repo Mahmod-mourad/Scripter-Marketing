@@ -250,7 +250,7 @@ export default function ServicesPage() {
       </PageTransition>
 
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton phoneNumber="01020384694" />
     </div>
   )
 }

@@ -34,7 +34,7 @@ export default function ProjectLoadingPage() {
       </main>
 
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton phoneNumber="01020384694" />
     </div>
   )
 }

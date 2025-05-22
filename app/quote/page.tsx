@@ -610,7 +610,7 @@ export default function QuotePage() {
       </PageTransition>
 
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton phoneNumber="01020384694" />
     </div>
   )
 }

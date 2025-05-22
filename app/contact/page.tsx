@@ -313,7 +313,7 @@ export default function ContactPage() {
       </PageTransition>
 
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton phoneNumber="01020384694" />
     </div>
   )
 }
