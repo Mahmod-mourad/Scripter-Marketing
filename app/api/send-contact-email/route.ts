@@ -68,10 +68,10 @@ export async function POST(request: Request) {
     }
 
     console.log('Contact email sent successfully:', data)
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       message: 'تم إرسال رسالتك بنجاح',
-      emailId: data?.id 
+      emailId: data?.id || undefined
     })
 
   } catch (error) {

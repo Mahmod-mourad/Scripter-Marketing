@@ -66,7 +66,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       message: 'تم إرسال البيانات بنجاح',
-      emailId: data?.id || null
+      emailId: data?.id || undefined
     })
 
   } catch (error) {
