@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import { PageTransition } from "@/components/page-transition"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowRight, CheckCircle2, Calculator, Users, FileText, BarChart, Clock, Shield, Monitor, Database, Settings } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { ReactNode } from "react"
@@ -16,114 +16,82 @@ interface Feature {
   id: string
   title: string
   description: string
-  image: string
+  icon: ReactNode
   benefits: string[]
-}
-
-interface ButtonProps {
-  size?: "default" | "sm" | "lg" | "icon"
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
-  className?: string
-  asChild?: boolean
-  children: ReactNode
 }
 
 export default function AccountingSoftwarePage() {
   const features: Feature[] = [
     {
-      id: "login",
-      title: "نظام تسجيل دخول آمن",
-      description: "نظام تسجيل دخول متقدم مع إمكانية إدارة الصلاحيات والمستخدمين بشكل آمن وفعال",
-      image: "/assets/images/accounting-software/login.png",
+      id: "desktop",
+      title: "تطبيق سطح مكتب",
+      description: "تطبيق محاسبي متكامل يعمل على نظام Windows",
+      icon: <Monitor className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
       benefits: [
-        "تسجيل دخول آمن ومشفر",
-        "إدارة صلاحيات المستخدمين",
-        "تعدد المستخدمين",
-        "حماية البيانات الحساسة"
+        "واجهة مستخدم سهلة",
+        "عمل سريع وفعال",
+        "دعم كامل للغة العربية",
+        "توافق مع Windows"
       ]
     },
     {
-      id: "customers",
-      title: "إدارة العملاء",
-      description: "نظام متكامل لإدارة العملاء مع إمكانية تتبع المعاملات والمدفوعات",
-      image: "/assets/images/accounting-software/customers.png",
+      id: "accounting",
+      title: "إدارة الحسابات",
+      description: "نظام محاسبي متكامل لإدارة الحسابات المالية",
+      icon: <Calculator className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
       benefits: [
-        "إدارة بيانات العملاء",
-        "تتبع المعاملات",
-        "سجل المدفوعات",
-        "تقارير العملاء"
+        "إدارة الحسابات المالية",
+        "تسجيل المعاملات المالية",
+        "الميزانية العمومية",
+        "قائمة الدخل"
       ]
     },
     {
-      id: "sales",
-      title: "إدارة المبيعات",
-      description: "نظام متطور لإدارة المبيعات والفواتير مع إمكانية تتبع المخزون",
-      image: "/assets/images/accounting-software/sales.png",
+      id: "inventory",
+      title: "إدارة المخزون",
+      description: "نظام متطور لإدارة المخزون والمستودعات",
+      icon: <FileText className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
       benefits: [
-        "إدارة الفواتير",
-        "تتبع المبيعات",
-        "إدارة المخزون",
+        "تتبع المخزون",
+        "إدارة المستودعات",
+        "جرد المخزون",
+        "تنبيهات المخزون"
+      ]
+    },
+    {
+      id: "invoices",
+      title: "إدارة الفواتير",
+      description: "نظام متكامل لإدارة الفواتير والمبيعات",
+      icon: <BarChart className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
+      benefits: [
+        "إنشاء الفواتير",
+        "إدارة المبيعات",
+        "تتبع المدفوعات",
         "تقارير المبيعات"
       ]
     },
     {
-      id: "bank",
-      title: "إدارة الحسابات البنكية",
-      description: "نظام متكامل لإدارة الحسابات البنكية والمعاملات المالية",
-      image: "/assets/images/accounting-software/bank.png",
+      id: "database",
+      title: "قاعدة بيانات محلية",
+      description: "قاعدة بيانات محلية آمنة وسريعة",
+      icon: <Database className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
       benefits: [
-        "إدارة الحسابات البنكية",
-        "تتبع المعاملات المالية",
-        "المصالحات البنكية",
-        "تقارير مالية"
-      ]
-    },
-    {
-      id: "reports",
-      title: "التقارير المالية",
-      description: "تقارير مالية شاملة ومفصلة مع إمكانية تخصيص التقارير حسب احتياجاتك",
-      image: "/assets/images/accounting-software/reborts.png",
-      benefits: [
-        "تقارير مالية شاملة",
-        "تقارير مخصصة",
-        "تحليلات مالية",
-        "تصدير التقارير"
-      ]
-    },
-    {
-      id: "backup",
-      title: "النسخ الاحتياطي",
-      description: "نظام نسخ احتياطي متقدم مع إمكانية استعادة البيانات بسهولة",
-      image: "/assets/images/accounting-software/backup,restorre.png",
-      benefits: [
+        "تخزين محلي آمن",
         "نسخ احتياطي تلقائي",
         "استعادة البيانات",
-        "حماية البيانات",
-        "تخزين آمن"
+        "أداء عالي"
       ]
     },
     {
-      id: "mortgage",
-      title: "إدارة القروض والرهون",
-      description: "نظام متكامل لإدارة القروض والرهون العقارية مع تتبع المدفوعات",
-      image: "/assets/images/accounting-software/mortg33tmange].png",
+      id: "customization",
+      title: "تخصيص كامل",
+      description: "إمكانية تخصيص البرنامج حسب احتياجاتك",
+      icon: <Settings className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
       benefits: [
-        "إدارة القروض",
-        "تتبع المدفوعات",
-        "جدولة الأقساط",
-        "تقارير القروض"
-      ]
-    },
-    {
-      id: "settings",
-      title: "إعدادات النظام",
-      description: "لوحة تحكم متكاملة لإدارة إعدادات النظام وتخصيصه حسب احتياجاتك",
-      image: "/assets/images/accounting-software/setting.png",
-      benefits: [
-        "تخصيص النظام",
-        "إدارة الإعدادات",
-        "تحديث النظام",
-        "إدارة المستخدمين"
+        "تخصيص الواجهة",
+        "تخصيص التقارير",
+        "إعدادات متقدمة",
+        "دعم فني متواصل"
       ]
     }
   ]
@@ -133,11 +101,11 @@ export default function AccountingSoftwarePage() {
       <MainNav />
 
       <PageHeader
-        title="برنامج المحاسبة المتكامل"
-        description="نظام محاسبة متكامل لإدارة أعمالك بكفاءة عالية"
+        title="دفترة - برنامج محاسبي متكامل"
+        description="تطبيق سطح مكتب متكامل لإدارة الحسابات والمخزون والفواتير"
         breadcrumbs={[
           { title: "الرئيسية", href: "/" },
-          { title: "برنامج المحاسبة", href: "/accounting-software" },
+          { title: "دفترة", href: "/projects/accounting-software" },
         ]}
       />
 
@@ -149,10 +117,10 @@ export default function AccountingSoftwarePage() {
               <div className="grid gap-12 md:grid-cols-2 items-center">
                 <div>
                   <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl theme-transition">
-                    برنامج محاسبة متكامل لإدارة أعمالك
+                    دفترة - برنامج محاسبي متكامل
                   </h1>
                   <p className="mt-6 text-lg text-slate-600 dark:text-slate-300 theme-transition">
-                    نظام محاسبة متطور يساعدك في إدارة أعمالك بكفاءة عالية. يوفر لك جميع الأدوات التي تحتاجها لإدارة المبيعات، العملاء، المخزون، والحسابات المالية.
+                    تطبيق سطح مكتب متطور يساعدك في إدارة حساباتك ومخزونك وفواتيرك بكفاءة عالية. يوفر لك جميع الأدوات التي تحتاجها لإدارة أعمالك بشكل احترافي.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-4">
                     <Button
@@ -170,13 +138,13 @@ export default function AccountingSoftwarePage() {
                     </Button>
                   </div>
                 </div>
-                <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="/assets/images/accounting-software/login.png"
-                    alt="برنامج المحاسبة المتكامل"
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <Monitor className="h-16 w-16 text-blue-600 dark:text-blue-400 mx-auto mb-4" />
+                    <p className="text-blue-900 dark:text-blue-100 text-lg font-medium">
+                      تطبيق سطح مكتب متكامل
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -187,10 +155,10 @@ export default function AccountingSoftwarePage() {
             <div className="container">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl theme-transition">
-                  مميزات البرنامج
+                  مميزات التطبيق
                 </h2>
                 <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 theme-transition">
-                  اكتشف كيف يمكن لبرنامجنا مساعدتك في إدارة أعمالك بكفاءة عالية
+                  اكتشف كيف يمكن لتطبيق دفترة مساعدتك في إدارة أعمالك بكفاءة عالية
                 </p>
               </div>
 
@@ -201,13 +169,8 @@ export default function AccountingSoftwarePage() {
                     className="bg-gradient-to-br from-white via-white to-slate-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 border-slate-200/50 dark:border-slate-700/50 hover:shadow-xl transition-all duration-300"
                   >
                     <CardContent className="p-6">
-                      <div className="relative aspect-video rounded-lg overflow-hidden mb-6">
-                        <Image
-                          src={feature.image}
-                          alt={feature.title}
-                          fill
-                          className="object-cover"
-                        />
+                      <div className="mb-4">
+                        {feature.icon}
                       </div>
                       <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 theme-transition">
                         {feature.title}
@@ -235,9 +198,9 @@ export default function AccountingSoftwarePage() {
             <div className="container">
               <div className="rounded-xl bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-700 dark:via-blue-800 dark:to-blue-900 p-8 md:p-12 shadow-xl theme-transition">
                 <div className="mx-auto max-w-3xl text-center">
-                  <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">هل أنت جاهز لبدء استخدام البرنامج؟</h2>
+                  <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">هل أنت جاهز لبدء استخدام دفترة؟</h2>
                   <p className="mt-4 text-lg text-blue-100">
-                    تواصل معنا اليوم للحصول على عرض سعر مخصص وبدء استخدام البرنامج في أقرب وقت ممكن
+                    تواصل معنا اليوم للحصول على عرض سعر مخصص وبدء استخدام التطبيق في أقرب وقت ممكن
                   </p>
                   <div className="mt-8 flex flex-wrap justify-center gap-4">
                     <Button
