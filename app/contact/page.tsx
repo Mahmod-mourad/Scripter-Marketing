@@ -1,3 +1,5 @@
+"use client"
+
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
@@ -9,13 +11,71 @@ import { PageTransition } from "@/components/page-transition"
 import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, Phone, Mail, Clock } from "lucide-react"
 import Link from "next/link"
-
-export const metadata = {
-  title: "اتصل بنا | Scripter Marketing",
-  description: "تواصل مع شركة Scripter Marketing للاستفسارات والمشاريع",
-}
+import { useState } from "react"
+import { toast } from "sonner"
 
 export default function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    subject: "",
+    message: "",
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      console.log("Submitting contact form data:", formData)
+      
+      const response = await fetch("/api/send-contact-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+      console.log("Response from server:", data)
+
+      if (!response.ok) {
+        throw new Error(data.error || data.details || "حدث خطأ أثناء إرسال الرسالة")
+      }
+
+      // Show success message
+      toast.success(data.message || "تم إرسال رسالتك بنجاح")
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        subject: "",
+        message: "",
+      })
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      const errorMessage = error instanceof Error ? error.message : "حدث خطأ أثناء إرسال الرسالة"
+      toast.error(errorMessage)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   // Define contact cards to avoid duplication
   const contactCards = [
     {
@@ -68,7 +128,7 @@ export default function ContactPage() {
                   <p className="mt-2 text-slate-600 dark:text-slate-300 theme-transition">
                     يمكنك التواصل معنا من خلال ملء النموذج التالي وسنقوم بالرد عليك في أقرب وقت ممكن
                   </p>
-                  <form className="mt-8 space-y-6">
+                  <form onSubmit={handleSubmit} className="mt-8 space-y-6">
                     <div className="grid gap-6 md:grid-cols-2">
                       <div>
                         <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-900 dark:text-white theme-transition">
@@ -76,6 +136,9 @@ export default function ContactPage() {
                         </label>
                         <Input 
                           id="name" 
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
                           placeholder="أدخل اسمك الكامل" 
                           required
                           className="border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 shadow-sm hover:shadow-md transition-all duration-200 theme-transition"
@@ -87,7 +150,10 @@ export default function ContactPage() {
                         </label>
                         <Input 
                           id="email" 
+                          name="email"
                           type="email" 
+                          value={formData.email}
+                          onChange={handleChange}
                           placeholder="أدخل بريدك الإلكتروني" 
                           required
                           className="border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 shadow-sm hover:shadow-md transition-all duration-200 theme-transition"
@@ -101,7 +167,10 @@ export default function ContactPage() {
                         </label>
                         <Input 
                           id="phone" 
+                          name="phone"
                           type="tel" 
+                          value={formData.phone}
+                          onChange={handleChange}
                           placeholder="أدخل رقم هاتفك" 
                           required
                           className="border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 shadow-sm hover:shadow-md transition-all duration-200 theme-transition"
@@ -113,6 +182,9 @@ export default function ContactPage() {
                         </label>
                         <Input 
                           id="company" 
+                          name="company"
+                          value={formData.company}
+                          onChange={handleChange}
                           placeholder="أدخل اسم شركتك" 
                           className="border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 shadow-sm hover:shadow-md transition-all duration-200 theme-transition"
                         />
@@ -124,6 +196,9 @@ export default function ContactPage() {
                       </label>
                       <Input 
                         id="subject" 
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
                         placeholder="أدخل موضوع الرسالة" 
                         required
                         className="border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 shadow-sm hover:shadow-md transition-all duration-200 theme-transition"
@@ -135,6 +210,9 @@ export default function ContactPage() {
                       </label>
                       <Textarea 
                         id="message" 
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
                         placeholder="أدخل رسالتك" 
                         rows={5} 
                         required
@@ -148,8 +226,9 @@ export default function ContactPage() {
                       <Button 
                         type="submit" 
                         className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 text-white shadow-md hover:shadow-lg transition-all duration-200 theme-transition px-8 py-2 rounded-lg"
+                        disabled={isSubmitting}
                       >
-                        إرسال الرسالة
+                        {isSubmitting ? "جاري الإرسال..." : "إرسال الرسالة"}
                       </Button>
                     </div>
                   </form>

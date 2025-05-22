@@ -19,11 +19,15 @@ export default function AccountingSoftwareClientPage() {
     setShowDownloadForm(true)
   }
 
+  const handleCloseDownloadForm = () => {
+    setShowDownloadForm(false)
+  }
+
   // Define feature lists to avoid duplication
   const featureLists = [
     {
       id: "features-list-1",
-      title: "مميزات الأصناف في برنامج محاسبة DEXEF ERP",
+      title: "مميزات الأصناف في برنامج محاسبة دفترة",
       items: [
         "إضافة الأصناف باستخدام قارئ الباركود في برنامج الكاشير",
         "إضافة أنواع مختلفة للأصناف سواء خدمة أو مخزون - منتج تام",
@@ -35,7 +39,7 @@ export default function AccountingSoftwareClientPage() {
       id: "features-list-2",
       title: "نظامية المخازن",
       items: [
-        "مع برنامج محاسبة DEXEF ERP يمكنك إدارة غاية في النظامية للمخازن، فتستطيع من خلاله إدارة الأصناف في نظام شجري متعدد التفريعات.",
+        "مع برنامج محاسبة دفترة يمكنك إدارة غاية في النظامية للمخازن، فتستطيع من خلاله إدارة الأصناف في نظام شجري متعدد التفريعات.",
         "تقسيم الأصناف التي لها نفس الخصائص في صورة مجموعات",
         "عملية البحث داخل المخازن أكثر سهولة من أي وقت مضى",
         "تحديد المورد الخاص بكل صنف",
@@ -58,12 +62,12 @@ export default function AccountingSoftwareClientPage() {
       <MainNav />
 
       <PageHeader
-        title="برنامج المحاسبة الشامل"
+        title="دفترة"
         description="برنامج محاسبي متكامل لإدارة الحسابات والمخزون والفواتير للشركات والمؤسسات"
         breadcrumbs={[
           { title: "الرئيسية", href: "/" },
           { title: "مشاريعنا", href: "/projects" },
-          { title: "برنامج المحاسبة الشامل", href: "/projects/accounting-software" },
+          { title: "دفترة", href: "/projects/accounting-software" },
         ]}
       />
 
@@ -74,10 +78,9 @@ export default function AccountingSoftwareClientPage() {
             <div className="container">
               <div className="grid gap-12 md:grid-cols-2 md:items-center">
                 <div>
-                  <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition">DEXEF ERP برنامج محاسبة يلبي كل احتياجاتك</h2>
+                  <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition">دفترة برنامج محاسبة يلبي كل احتياجاتك</h2>
                   <p className="mt-6 text-lg text-slate-700 dark:text-slate-300 theme-transition">
-                    هل تبحث عن برنامج محاسبة يشمل كل الإمكانيات التي تجعلك قادراً على إدارة شركتك بكل سهولة؟ إليك DEXEF
-                    ERP فهو برنامج محاسبي سحابي "قلبه على مصلحتك" ينقل مستوى أعمالك إلى مستوى أعلى حيث يتم التسجيل الآلي
+                    هل تبحث عن برنامج محاسبة يشمل كل الإمكانيات التي تجعلك قادراً على إدارة شركتك بكل سهولة؟ إليك دفترة فهو برنامج محاسبي سحابي "قلبه على مصلحتك" ينقل مستوى أعمالك إلى مستوى أعلى حيث يتم التسجيل الآلي
                     لجميع القيود المحاسبية على معاملاتك المالية.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-4">
@@ -107,30 +110,18 @@ export default function AccountingSoftwareClientPage() {
             </div>
           </section>
 
-          {/* Download Section */}
-          <section id="download" className="bg-slate-100 dark:bg-slate-900 py-16 theme-transition">
-            <div className="container">
-              <div className="mx-auto max-w-3xl rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-700 dark:to-blue-900 p-8 text-center shadow-lg md:p-12">
-                <h2 className="text-3xl font-bold tracking-tight text-white">رابط تحميل برنامج محاسبة مجانا</h2>
-                <p className="mt-4 text-lg text-blue-100 dark:text-blue-200">
-                  الآن أصبح بمقدورك تجربة أفضل برنامج محاسبة قبل اتخاذ قرار الشراء، للتأكد من أنه مناسب لاحتياجاتك.
-                </p>
-                <div className="mt-8 bg-white dark:bg-slate-800 p-6 rounded-lg theme-transition">
-                  <DownloadForm />
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* Download Form Modal */}
+          <DownloadForm isOpen={showDownloadForm} onClose={handleCloseDownloadForm} />
 
           {/* Features Overview */}
           <section className="bg-slate-50 dark:bg-slate-900 py-16 theme-transition">
             <div className="container">
               <div className="mx-auto max-w-3xl text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition">
-                  مميزات المخازن والمستودعات في برنامج محاسبة Dexef Erp
+                  مميزات المخازن والمستودعات في برنامج محاسبة دفترة
                 </h2>
                 <p className="mt-4 text-lg text-slate-700 dark:text-slate-300 theme-transition">
-                  يتضمن برنامج محاسبة سحابي ديكسيف أدوات إدارة مختلف أنواع الحسابات في المحاسبة، مما يسهل تنفيذ الدورة
+                  يتضمن برنامج محاسبة سحابي دفترة أدوات إدارة مختلف أنواع الحسابات في المحاسبة، مما يسهل تنفيذ الدورة
                   المحاسبية بدقة وكفاءة، بما في ذلك المحاسبة المالية والإدارية ومحاسبة التكاليف.
                 </p>
               </div>
@@ -161,7 +152,7 @@ export default function AccountingSoftwareClientPage() {
               <div className="mx-auto max-w-3xl text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white theme-transition">برنامج محاسبة متكامل للشركات</h2>
                 <p className="mt-4 text-lg text-slate-700 dark:text-slate-300 theme-transition">
-                  أفضل برنامج محاسبي متكامل للشركات.. DEXEF ERP يشمل جميع ميزات الحسابات العامة
+                  أفضل برنامج محاسبي متكامل للشركات.. دفترة يشمل جميع ميزات الحسابات العامة
                 </p>
               </div>
 
@@ -189,14 +180,14 @@ export default function AccountingSoftwareClientPage() {
                           <li key="inventory-feature-1" className="flex items-start gap-3">
                             <Check className="h-6 w-6 flex-shrink-0 text-blue-600 dark:text-blue-400" />
                             <p className="text-slate-700 dark:text-slate-300 theme-transition">
-                              من خلال برنامج محاسبة Dexef، يمكن عمل جرد للمخازن بكل سهولة عن أي فترة سواء يومية أو شهرية
+                              من خلال برنامج محاسبة دفترة، يمكن عمل جرد للمخازن بكل سهولة عن أي فترة سواء يومية أو شهرية
                               أو سنوية والوقوف على أرصدة نهاية كل فترة بأي وحدة للصنف.
                             </p>
                           </li>
                           <li key="inventory-feature-2" className="flex items-start gap-3">
                             <Check className="h-6 w-6 flex-shrink-0 text-blue-600 dark:text-blue-400" />
                             <p className="text-slate-700 dark:text-slate-300 theme-transition">
-                              نظام محاسبة ديكسيف يوضح لك الطريقة التي تراها الأنسب لحساب تكلفة المخزون لديك سواء
+                              نظام محاسبة دفترة يوضح لك الطريقة التي تراها الأنسب لحساب تكلفة المخزون لديك سواء
                               بالمتوسط المرجح أو الوارد أو صادر أولا - الوارد أخيرا صادر أولا.
                             </p>
                           </li>
@@ -222,14 +213,14 @@ export default function AccountingSoftwareClientPage() {
                       </div>
                       <div>
                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white theme-transition">
-                          برنامج محاسبة DEXEF ERP يوفر لك كل ما تحتاجه لإدارة منظومتك المالية
+                          برنامج محاسبة دفترة يوفر لك كل ما تحتاجه لإدارة منظومتك المالية
                         </h3>
                         <ul className="mt-6 space-y-4">
                           <li key="financial-feature-1" className="flex items-start gap-3">
                             <Check className="h-6 w-6 flex-shrink-0 text-blue-600 dark:text-blue-400" />
                             <p className="text-slate-700 dark:text-slate-300 theme-transition">
                               نجاح المنظومة المالية داخل مؤسستك يضمن لك استمرارية التطور والتقدم. وهذا ما نوفره لك
-                              ديكسيف في أفضل برنامج محاسبي فهو برنامج فوترة ومبيعات ومحاسبة يساعدك كدليل محاسبي شامل سهل
+                              دفترة في أفضل برنامج محاسبي فهو برنامج فوترة ومبيعات ومحاسبة يساعدك كدليل محاسبي شامل سهل
                               تصنيف وتنظيم الحسابات
                             </p>
                           </li>
@@ -255,7 +246,7 @@ export default function AccountingSoftwareClientPage() {
                         />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white theme-transition">برنامج محاسبة DEXEF ERP لإدارة شؤون الموظفين</h3>
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white theme-transition">برنامج محاسبة دفترة لإدارة شؤون الموظفين</h3>
                         <ul className="mt-6 space-y-4">
                           <li key="hr-feature-1" className="flex items-start gap-3">
                             <Check className="h-6 w-6 flex-shrink-0 text-blue-600 dark:text-blue-400" />
@@ -292,7 +283,7 @@ export default function AccountingSoftwareClientPage() {
                         />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white theme-transition">برنامج محاسبة DEXEF ERP لإدارة الفروع</h3>
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white theme-transition">برنامج محاسبة دفترة لإدارة الفروع</h3>
                         <ul className="mt-6 space-y-4">
                           <li key="branches-feature-1" className="flex items-start gap-3">
                             <Check className="h-6 w-6 flex-shrink-0 text-blue-600 dark:text-blue-400" />

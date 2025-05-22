@@ -19,11 +19,23 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { Check, ArrowRight, ArrowLeft } from "lucide-react"
+import { Check, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react"
+import { toast } from "sonner"
 
 export default function QuotePage() {
   const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    projectType: "",
+    services: [] as string[],
+    budget: "",
+    description: "",
+    timeline: "",
+    hearAbout: "",
+  })
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   // Form schema for step 1
@@ -92,12 +104,82 @@ export default function QuotePage() {
     window.scrollTo(0, 0)
   }
 
-  const onSubmitStep3 = (data: z.infer<typeof formSchema3>) => {
-    setFormData({ ...formData, ...data })
-    // Here you would typically send the data to your server
-    console.log("Form submitted:", { ...formData, ...data })
-    setIsSubmitted(true)
-    window.scrollTo(0, 0)
+  const onSubmitStep3 = async (data: z.infer<typeof formSchema3>) => {
+    // Merge all form data
+    const finalFormData = {
+      ...formData,
+      ...data,
+      // Convert service IDs to labels
+      services: formData.services.map(id => {
+        const service = serviceOptions.find(s => s.id === id)
+        return service ? service.label : id
+      }),
+      // Convert budget value to label
+      budget: budgetOptions.find(b => b.value === formData.budget)?.label || formData.budget,
+      // Convert timeline value to label
+      timeline: data.timeline === 'asap' ? 'في أقرب وقت ممكن' :
+                data.timeline === '1-month' ? 'خلال شهر' :
+                data.timeline === '1-3-months' ? '1-3 أشهر' :
+                data.timeline === '3-6-months' ? '3-6 أشهر' :
+                data.timeline === '6-plus-months' ? 'أكثر من 6 أشهر' :
+                data.timeline === 'not-sure' ? 'غير متأكد' : data.timeline,
+      // Convert project type to label
+      projectType: formData.projectType === 'website' ? 'موقع ويب' :
+                  formData.projectType === 'mobile-app' ? 'تطبيق جوال' :
+                  formData.projectType === 'desktop-app' ? 'برنامج سطح المكتب' :
+                  formData.projectType === 'e-commerce' ? 'متجر إلكتروني' :
+                  formData.projectType === 'marketing' ? 'حملة تسويقية' :
+                  formData.projectType === 'other' ? 'أخرى' : formData.projectType,
+      // Convert hear about to label
+      hearAbout: data.hearAbout === 'search' ? 'محركات البحث' :
+                 data.hearAbout === 'social' ? 'وسائل التواصل الاجتماعي' :
+                 data.hearAbout === 'referral' ? 'توصية من صديق' :
+                 data.hearAbout === 'blog' ? 'مدونتنا' :
+                 data.hearAbout === 'other' ? 'مصدر آخر' : data.hearAbout
+    }
+
+    try {
+      console.log("Submitting quote form data:", finalFormData)
+      
+      const response = await fetch("/api/send-quote-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(finalFormData),
+      })
+
+      const responseData = await response.json()
+      console.log("Response from server:", responseData)
+
+      if (!response.ok) {
+        throw new Error(responseData.error || responseData.details || "حدث خطأ أثناء إرسال الطلب")
+      }
+
+      // Show success message
+      toast.success(responseData.message || "تم إرسال طلبك بنجاح")
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        projectType: "",
+        services: [],
+        budget: "",
+        description: "",
+        timeline: "",
+        hearAbout: "",
+      })
+
+      setIsSubmitted(true)
+      window.scrollTo(0, 0)
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      const errorMessage = error instanceof Error ? error.message : "حدث خطأ أثناء إرسال الطلب"
+      toast.error(errorMessage)
+    }
   }
 
   // Go back to previous step
@@ -132,7 +214,7 @@ export default function QuotePage() {
 
       <PageHeader
         title="طلب عرض سعر"
-        description="املأ النموذج التالي للحصول على عرض سعر مخصص لمشروعك"
+        description="احصل على عرض سعر مخصص لمشروعك"
         breadcrumbs={[
           { title: "الرئيسية", href: "/" },
           { title: "طلب عرض سعر", href: "/quote" },
@@ -478,7 +560,7 @@ export default function QuotePage() {
                               name="hearAbout"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="text-slate-900 dark:text-white">كيف سمعت عنا؟ (اختياري)</FormLabel>
+                                  <FormLabel className="text-slate-900 dark:text-white">كيف سمعت عنا (اختياري)</FormLabel>
                                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
                                       <SelectTrigger className="bg-white/90 dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 shadow-sm hover:shadow-md transition-all duration-200">

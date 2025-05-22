@@ -15,10 +15,10 @@ export default function ProjectsPage() {
   const projects = [
     {
       id: "accounting-software",
-      title: "برنامج المحاسبة الشامل",
-      description: "برنامج محاسبي متكامل مطور بلغة C# لإدارة الحسابات والمخزون والفواتير",
+      title: "دفترة",
+      description: "برنامج محاسبي متكامل لإدارة الحسابات والمخزون والفواتير للشركات والمؤسسات",
       image: "/assets/images/projects/accounting-software.jpg",
-      category: "desktop",
+      category: "software",
       featured: true,
     },
     {

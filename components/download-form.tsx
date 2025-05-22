@@ -1,132 +1,160 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Download } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { X } from "lucide-react"
+import { toast } from "sonner"
 
-export function DownloadForm() {
+interface DownloadFormProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export function DownloadForm({ isOpen, onClose }: DownloadFormProps) {
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     phone: "",
-    company: "",
+    companyName: "",
   })
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      console.log("Submitting form data:", formData)
+      
+      const response = await fetch("/api/send-download-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+      console.log("Response from server:", data)
+
+      if (!response.ok) {
+        throw new Error(data.error || data.details || "حدث خطأ أثناء إرسال البيانات")
+      }
+
+      // Show success message
+      toast.success(data.message || "تم إرسال البيانات بنجاح")
+
+      // Reset form
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        companyName: "",
+      })
+
+      // Redirect to Google Drive link
+      window.open("https://drive.google.com/file/d/1lB9Cq2vX9Mi0PN2WFdUUC-Wv_ZTRO1wG/view?ts=682e1a9e", "_blank")
+      
+      // Close the dialog
+      onClose()
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      const errorMessage = error instanceof Error ? error.message : "حدث خطأ أثناء إرسال البيانات"
+      toast.error(errorMessage)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Here you would typically send the data to your server
-    console.log("Form submitted:", formData)
-    setIsSubmitted(true)
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle>تحميل برنامج المحاسبة</CardTitle>
-        <CardDescription>
-          يرجى ملء النموذج التالي للحصول على رابط تحميل النسخة التجريبية من برنامج المحاسبة
-        </CardDescription>
-      </CardHeader>
-      {!isSubmitted ? (
-        <>
-          <CardContent>
-            <form onSubmit={handleSubmit} id="download-form" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">الاسم الكامل</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  placeholder="أدخل اسمك الكامل"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">البريد الإلكتروني</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="أدخل بريدك الإلكتروني"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">رقم الهاتف</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  placeholder="أدخل رقم هاتفك"
-                  required
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="company">اسم الشركة</Label>
-                <Input
-                  id="company"
-                  name="company"
-                  placeholder="أدخل اسم شركتك"
-                  value={formData.company}
-                  onChange={handleChange}
-                />
-              </div>
-            </form>
-          </CardContent>
-          <CardFooter>
-            <Button type="submit" form="download-form" className="w-full gap-2 bg-blue-600 hover:bg-blue-700">
-              <Download className="h-5 w-5" />
-              تحميل البرنامج
-            </Button>
-          </CardFooter>
-        </>
-      ) : (
-        <CardContent className="text-center py-8">
-          <div className="flex flex-col items-center space-y-4">
-            <div className="rounded-full bg-green-100 p-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6 text-green-600"
-              >
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-center">تحميل برنامج دفترة</DialogTitle>
+          <DialogDescription className="text-center">
+            يرجى ملء النموذج التالي للحصول على رابط تحميل النسخة التجريبية من برنامج دفترة
+          </DialogDescription>
+          <Button
+            variant="ghost"
+            className="absolute left-4 top-4 h-8 w-8 p-0"
+            onClick={onClose}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="fullName">الاسم الكامل</Label>
+              <Input
+                id="fullName"
+                name="fullName"
+                placeholder="أدخل اسمك الكامل"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+              />
             </div>
-            <h3 className="text-xl font-bold">شكراً لك!</h3>
-            <p className="text-slate-600">تم إرسال رابط التحميل إلى بريدك الإلكتروني</p>
-            <Button
-              className="mt-4 gap-2 bg-blue-600 hover:bg-blue-700"
-              onClick={() => window.open("https://download.dexef.com/setup.exe", "_blank")}
-            >
-              <Download className="h-5 w-5" />
-              تحميل مباشر
-            </Button>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">البريد الإلكتروني</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="أدخل بريدك الإلكتروني"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="phone">رقم الهاتف</Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="أدخل رقم هاتفك"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="companyName">اسم الشركة</Label>
+              <Input
+                id="companyName"
+                name="companyName"
+                placeholder="أدخل اسم شركتك"
+                value={formData.companyName}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-        </CardContent>
-      )}
-    </Card>
+
+          <Button 
+            type="submit" 
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "جاري التحميل..." : "تحميل البرنامج"}
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
   )
 }

@@ -11,7 +11,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
-export default function AccountingSoftwareProjectPage() {
+export default function AccountingSoftwarePage() {
   const features = [
     {
       id: "login",
@@ -120,8 +120,7 @@ export default function AccountingSoftwareProjectPage() {
         description="نظام محاسبة متكامل لإدارة أعمالك بكفاءة عالية"
         breadcrumbs={[
           { title: "الرئيسية", href: "/" },
-          { title: "المشاريع", href: "/projects" },
-          { title: "برنامج المحاسبة", href: "/projects/accounting-software" },
+          { title: "برنامج المحاسبة", href: "/accounting-software" },
         ]}
       />
 
@@ -144,7 +143,7 @@ export default function AccountingSoftwareProjectPage() {
                       className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 text-white shadow-md hover:shadow-lg transition-all duration-200"
                       asChild
                     >
-                      <Link href="#free-trial">تحميل نسخة مجانية</Link>
+                      <Link href="/quote">طلب عرض سعر</Link>
                     </Button>
                     <Button
                       size="lg"
@@ -216,126 +215,6 @@ export default function AccountingSoftwareProjectPage() {
             </div>
           </section>
 
-          {/* Free Trial Section */}
-          <section id="free-trial" className="py-16 bg-gradient-to-b from-white via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 theme-transition">
-            <div className="container">
-              <div className="grid gap-12 md:grid-cols-2 items-center">
-                <div>
-                  <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl theme-transition">
-                    جرب النسخة المجانية
-                  </h2>
-                  <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 theme-transition">
-                    قم بتحميل النسخة التجريبية المجانية من برنامج المحاسبة المتكامل واكتشف مميزاته بنفسك
-                  </p>
-                  <ul className="mt-6 space-y-4">
-                    <li className="flex items-center text-slate-600 dark:text-slate-300 theme-transition">
-                      <CheckCircle2 className="h-5 w-5 text-blue-600 dark:text-blue-400 ml-2" />
-                      نسخة تجريبية كاملة لمدة 30 يوم
-                    </li>
-                    <li className="flex items-center text-slate-600 dark:text-slate-300 theme-transition">
-                      <CheckCircle2 className="h-5 w-5 text-blue-600 dark:text-blue-400 ml-2" />
-                      جميع المميزات متاحة للتجربة
-                    </li>
-                    <li className="flex items-center text-slate-600 dark:text-slate-300 theme-transition">
-                      <CheckCircle2 className="h-5 w-5 text-blue-600 dark:text-blue-400 ml-2" />
-                      دعم فني مجاني خلال فترة التجربة
-                    </li>
-                  </ul>
-                </div>
-                <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl p-8">
-                  <form onSubmit={(e) => {
-                    e.preventDefault()
-                    const formData = new FormData(e.currentTarget)
-                    const data = {
-                      fullName: formData.get('fullName'),
-                      email: formData.get('email'),
-                      phone: formData.get('phone'),
-                      companyName: formData.get('companyName')
-                    }
-                    
-                    fetch('/api/send-download-email', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify(data),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                      if (data.success) {
-                        window.open('https://drive.google.com/file/d/1lB9Cq2vX9Mi0PN2WFdUUC-Wv_ZTRO1wG/view?ts=682e1a9e', '_blank')
-                        window.close()
-                      }
-                    })
-                    .catch(error => {
-                      console.error('Error:', error)
-                    })
-                  }}>
-                    <div className="space-y-4">
-                      <div>
-                        <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                          الاسم الكامل
-                        </label>
-                        <input
-                          type="text"
-                          id="fullName"
-                          name="fullName"
-                          required
-                          className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
-                          placeholder="أدخل اسمك الكامل"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                          البريد الإلكتروني
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          required
-                          className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
-                          placeholder="أدخل بريدك الإلكتروني"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                          رقم الهاتف
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          required
-                          className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
-                          placeholder="أدخل رقم هاتفك"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="companyName" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                          اسم الشركة
-                        </label>
-                        <input
-                          type="text"
-                          id="companyName"
-                          name="companyName"
-                          className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
-                          placeholder="أدخل اسم شركتك (اختياري)"
-                        />
-                      </div>
-                      <Button
-                        type="submit"
-                        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 text-white shadow-md hover:shadow-lg transition-all duration-200"
-                      >
-                        تحميل النسخة المجانية
-                      </Button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* Call to Action */}
           <section className="py-16 bg-gradient-to-b from-white via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 theme-transition">
             <div className="container">
@@ -344,9 +223,6 @@ export default function AccountingSoftwareProjectPage() {
                   <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">هل أنت جاهز لبدء استخدام البرنامج؟</h2>
                   <p className="mt-4 text-lg text-blue-100">
                     تواصل معنا اليوم للحصول على عرض سعر مخصص وبدء استخدام البرنامج في أقرب وقت ممكن
-                  </p>
-                  <p className="mt-2 text-lg text-blue-100">
-                    العنوان: 6 أكتوبر - المحور المركزي
                   </p>
                   <div className="mt-8 flex flex-wrap justify-center gap-4">
                     <Button
@@ -373,7 +249,7 @@ export default function AccountingSoftwareProjectPage() {
       </PageTransition>
 
       <Footer />
-      <WhatsAppButton phoneNumber="01020384694" />
+      <WhatsAppButton />
     </div>
   )
-}
+} 
